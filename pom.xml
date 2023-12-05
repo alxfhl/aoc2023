@@ -12,10 +12,24 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <annotationsVersion>23.0.0</annotationsVersion>
+        <assertJVersion>3.24.2</assertJVersion>
+        <jUnitVersion>5.10.1</jUnitVersion>
         <slf4jVersion>2.0.7</slf4jVersion>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertJVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${jUnitVersion}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -26,6 +40,11 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4jVersion}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${annotationsVersion}</version>
         </dependency>
     </dependencies>
 </project>
