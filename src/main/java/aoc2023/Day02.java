@@ -1,8 +1,6 @@
 package aoc2023;
 
 import aoc2023.tools.Input;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -11,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Day02 {
-
-    private static final Logger LOG = LoggerFactory.getLogger(Day02.class);
 
     public static final List<String> EXAMPLE1 = Input.fromString("""
             Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -32,12 +28,8 @@ public class Day02 {
     public static void main(String[] args) throws IOException {
         final List<String> input = Input.fromFile("input02");
         for (var lines : List.of(EXAMPLE1, input)) {
-            try {
-                System.out.println("part 1: " + getValue(lines));
-                System.out.println("part 2: " + getValue2(lines));
-            } catch (RuntimeException e) {
-                LOG.error("Unexpected error: ", e);
-            }
+            System.out.println("part 1: " + getValue(lines));
+            System.out.println("part 2: " + getValue2(lines));
         }
     }
 
@@ -46,8 +38,8 @@ public class Day02 {
         for (String line : lines) {
             var game = parse(line);
             if (possible(game, 12, "red")
-            && possible(game, 13, "green")
-            && possible(game, 14, "blue")) {
+                    && possible(game, 13, "green")
+                    && possible(game, 14, "blue")) {
                 sum += game.number;
             }
         }

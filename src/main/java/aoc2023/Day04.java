@@ -2,8 +2,6 @@ package aoc2023;
 
 import aoc2023.tools.Input;
 import aoc2023.tools.Parse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Day04 {
-
-    private static final Logger LOG = LoggerFactory.getLogger(Day04.class);
 
     public static final List<String> EXAMPLE1 = Input.fromString("""
             Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -24,15 +20,12 @@ public class Day04 {
             Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11""");
 
     private static final Pattern PATTERN = Pattern.compile("Card\\s+(\\d+):\\s*([^|]+)\\|([^|]+)");
+
     public static void main(String[] args) throws IOException {
         final List<String> input = Input.fromFile("input04");
         for (var lines : List.of(EXAMPLE1, input)) {
-            try {
-                System.out.println("part 1: " + getPart1(lines));
-                System.out.println("part 2: " + getPart2(lines));
-            } catch (RuntimeException e) {
-                LOG.error("Unexpected error: ", e);
-            }
+            System.out.println("part 1: " + getPart1(lines));
+            System.out.println("part 2: " + getPart2(lines));
         }
     }
 

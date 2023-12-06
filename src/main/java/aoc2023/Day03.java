@@ -1,16 +1,12 @@
 package aoc2023;
 
 import aoc2023.tools.Input;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day03 {
-    private static final Logger LOG = LoggerFactory.getLogger(Day03.class);
-
     public static final List<String> EXAMPLE1 = Input.fromString("""
             467..114..
             ...*......
@@ -26,12 +22,8 @@ public class Day03 {
     public static void main(String[] args) throws IOException {
         final List<String> input = Input.fromFile("input03");
         for (var lines : List.of(EXAMPLE1, input)) {
-            try {
-                System.out.println("part 1: " + getPart1(lines));
-                System.out.println("part 2: " + getPart2(lines));
-            } catch (RuntimeException e) {
-                LOG.error("Unexpected error: ", e);
-            }
+            System.out.println("part 1: " + getPart1(lines));
+            System.out.println("part 2: " + getPart2(lines));
         }
     }
 
