@@ -20,7 +20,7 @@ public class Day03 {
             .664.598..""");
 
     public static void main(String[] args) throws IOException {
-        final List<String> input = Input.fromFile("input03");
+        final List<String> input = Input.forDay(Day03.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));
             System.out.println("part 2: " + getPart2(lines));
@@ -49,7 +49,7 @@ public class Day03 {
         parsePartNumbers(lines, symbols);
         return symbols.stream()
                 .filter(symbol -> symbol.symbol.equals("*") && symbol.partNumbers.size() == 2)
-                .mapToLong(symbol -> symbol.partNumbers.get(0).value * symbol.partNumbers.get(1).value)
+                .mapToLong(symbol -> symbol.partNumbers.getFirst().value * symbol.partNumbers.get(1).value)
                 .sum();
     }
 
@@ -68,6 +68,19 @@ public class Day03 {
     }
 
     private static List<PartNumber> parsePartNumbers(List<String> lines, List<Symbol> symbols) {
+        List<PartNumber> partNumbers = getPartNumbers(lines);
+        for (PartNumber partNumber : partNumbers) {
+            for (Symbol sym : symbols) {
+                if (sym.y() >= partNumber.y() - 1 && sym.y() <= partNumber.y() + 1 && sym.x() >= partNumber.x() - 1 && sym.x() <= partNumber.x() + partNumber.length()) {
+                    sym.partNumbers.add(partNumber);
+                    partNumber.symbols.add(sym);
+                }
+            }
+        }
+        return partNumbers;
+    }
+
+    private static List<PartNumber> getPartNumbers(List<String> lines) {
         List<PartNumber> partNumbers = new ArrayList<>();
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
@@ -79,14 +92,6 @@ public class Day03 {
                     partNumbers.add(new PartNumber(x, y, value, part.length(), new ArrayList<>()));
                 }
                 x = end;
-            }
-        }
-        for (PartNumber partNumber : partNumbers) {
-            for (Symbol sym : symbols) {
-                if (sym.y() >= partNumber.y() - 1 && sym.y() <= partNumber.y() + 1 && sym.x() >= partNumber.x() - 1 && sym.x() <= partNumber.x() + partNumber.length()) {
-                    sym.partNumbers.add(partNumber);
-                    partNumber.symbols.add(sym);
-                }
             }
         }
         return partNumbers;

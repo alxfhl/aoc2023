@@ -30,7 +30,7 @@ public class Day01 {
             7pqrstsixteen""");
 
     public static void main(String[] args) throws IOException {
-        final List<String> input = Input.fromFile("input01");
+        final List<String> input = Input.forDay(Day01.class);
         for (var lines : List.of(EXAMPLE1, EXAMPLE2, input)) {
             System.out.println(getValue(lines));
         }

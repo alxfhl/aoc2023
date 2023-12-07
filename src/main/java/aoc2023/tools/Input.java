@@ -21,4 +21,7 @@ public class Input {
         return result;
     }
 
+    public static List<String> forDay(Class<?> clazz) throws IOException {
+        return fromFile("input" + clazz.getSimpleName().substring(3));
+    }
 }

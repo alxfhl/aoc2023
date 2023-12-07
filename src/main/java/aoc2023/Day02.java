@@ -26,7 +26,7 @@ public class Day02 {
     }
 
     public static void main(String[] args) throws IOException {
-        final List<String> input = Input.fromFile("input02");
+        final List<String> input = Input.forDay(Day02.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getValue(lines));
             System.out.println("part 2: " + getValue2(lines));

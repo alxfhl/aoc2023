@@ -22,7 +22,7 @@ public class Day04 {
     private static final Pattern PATTERN = Pattern.compile("Card\\s+(\\d+):\\s*([^|]+)\\|([^|]+)");
 
     public static void main(String[] args) throws IOException {
-        final List<String> input = Input.fromFile("input04");
+        final List<String> input = Input.forDay(Day04.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));
             System.out.println("part 2: " + getPart2(lines));

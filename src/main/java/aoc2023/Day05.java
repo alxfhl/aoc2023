@@ -64,7 +64,7 @@ public class Day05 {
     }
 
     public static void main(String[] args) throws IOException {
-        final List<String> input = Input.fromFile("input05");
+        final List<String> input = Input.forDay(Day05.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             List<Range> seeds = getSeeds(lines);
             List<Mapping> mappings = getMappings(lines);
@@ -111,7 +111,7 @@ public class Day05 {
     }
 
     private static List<Range> getSeeds(List<String> lines) {
-        List<Long> longs = Parse.getLongs(lines.get(0));
+        List<Long> longs = Parse.getLongs(lines.getFirst());
         List<Range> seeds = new ArrayList<>();
         for (int i = 0; i < longs.size(); i += 2) {
             seeds.add(new Range(longs.get(i), longs.get(i) + longs.get(i + 1)));
