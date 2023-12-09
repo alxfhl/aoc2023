@@ -7,7 +7,7 @@ import java.util.List;
 public class Parse {
     public static List<Long> getLongs(String s) {
         List<Long> result = new ArrayList<>();
-        for (String part : s.split("[^0-9]+")) {
+        for (String part : s.split("[^-0-9]+")) {
             if (!part.isBlank()) {
                 result.add(Long.valueOf(part));
             }
