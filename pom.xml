@@ -15,6 +15,7 @@
         <annotationsVersion>23.0.0</annotationsVersion>
         <assertJVersion>3.24.2</assertJVersion>
         <jUnitVersion>5.10.1</jUnitVersion>
+        <lombokVersion>1.18.30</lombokVersion>
         <slf4jVersion>2.0.7</slf4jVersion>
     </properties>
 
@@ -29,6 +30,12 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>${jUnitVersion}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombokVersion}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

@@ -21,11 +21,11 @@ public class Template {
         }
     }
 
-    private static long getPart1(List<String> lines) {
-        return -lines.size();
+    private static Long getPart1(List<String> lines) {
+        return null;
     }
 
-    private static long getPart2(List<String> lines) {
-        return -lines.size();
+    private static Long getPart2(List<String> lines) {
+        return null;
     }
 }
