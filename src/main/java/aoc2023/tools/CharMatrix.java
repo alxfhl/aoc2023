@@ -1,13 +1,14 @@
 package aoc2023.tools;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
+@SuppressWarnings("SuspiciousNameCombination")
+@EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CharMatrix {
     @Getter
@@ -23,12 +24,47 @@ public class CharMatrix {
         System.arraycopy(original.chars, 0, this.chars, 0, this.chars.length);
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     public CharMatrix transposed() {
         CharMatrix newMatrix = new CharMatrix(height, width, new char[this.chars.length]);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                newMatrix.set(y, x, get(x, y));
+        int index = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                newMatrix.chars[x * height + y] = chars[index++];
+            }
+        }
+        return newMatrix;
+    }
+
+    public CharMatrix rotatedLeft() {
+        CharMatrix newMatrix = new CharMatrix(height, width, new char[this.chars.length]);
+        int index = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                newMatrix.chars[(width - 1 - x) * height + y] = chars[index++];
+            }
+        }
+        return newMatrix;
+    }
+
+    public CharMatrix rotatedRight() {
+        CharMatrix newMatrix = new CharMatrix(height, width, new char[this.chars.length]);
+        int index = 0;
+        for (int y = 0; y < height; y++) {
+            int newY = height - 1 - y;
+            for (int x = 0; x < width; x++) {
+                newMatrix.chars[x * height + newY] = chars[index++];
+            }
+        }
+        return newMatrix;
+    }
+
+    public CharMatrix rotated180() {
+        CharMatrix newMatrix = new CharMatrix(width, height, new char[this.chars.length]);
+        int index = 0;
+        for (int y = 0; y < height; y++) {
+            int newY = height - y;
+            for (int x = 0; x < width; x++) {
+                newMatrix.chars[newY * width - 1 - x] = chars[index++];
             }
         }
         return newMatrix;
@@ -67,16 +103,14 @@ public class CharMatrix {
 
     public char[] getRow(int y) {
         char[] result = new char[width];
-        for (int x = 0; x < width; x++) {
-            result[x] = get(x, y);
-        }
+        System.arraycopy(chars, y * width, result, 0, width);
         return result;
     }
 
     public char[] getColumn(int x) {
         char[] result = new char[height];
         for (int y = 0; y < height; y++) {
-            result[y] = get(x, y);
+            result[y] = chars[y * width + x];
         }
         return result;
     }
@@ -97,27 +131,10 @@ public class CharMatrix {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CharMatrix matrix = (CharMatrix) o;
-        return width == matrix.width && height == matrix.height && Arrays.equals(chars, matrix.chars);
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * Objects.hash(width, height) + Arrays.hashCode(chars);
-    }
-
-    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Matrix ").append(width).append(":").append(height).append("\n");
+        StringBuilder sb = new StringBuilder().append("Matrix ").append(width).append(":").append(height).append("\n");
         for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                sb.append(get(x, y));
-            }
-            sb.append("\n");
+            sb.append(chars, y * width, width).append("\n");
         }
         return sb.toString();
     }

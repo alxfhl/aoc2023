@@ -61,4 +61,12 @@ class CharMatrixTest {
         assertThat(matrix.getRow(0)).isEqualTo(new char[]{'1', 'a'});
         assertThat(matrix.getColumn(0)).isEqualTo(new char[]{'1', '2', '3'});
     }
+
+    @Test
+    public void rotation() {
+        CharMatrix matrix = CharMatrix.valueOf(List.of("123", "abc"));
+        assertThat(matrix.rotatedLeft()).isEqualTo(CharMatrix.valueOf(List.of("3c", "2b", "1a")));
+        assertThat(matrix.rotatedRight()).isEqualTo(CharMatrix.valueOf(List.of("a1", "b2", "c3")));
+        assertThat(matrix.rotated180()).isEqualTo(CharMatrix.valueOf(List.of("cba", "321")));
+    }
 }
