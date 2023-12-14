@@ -4,7 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CharMatrix {
@@ -80,10 +82,43 @@ public class CharMatrix {
     }
 
     private int getIndex(int x, int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "(" + x + "," + y + ") is outside of (0.." + (width - 1) + ",0.." + (height - 1) + ")");
+        if (isOutside(x, y)) {
+            throw new ArrayIndexOutOfBoundsException("(" + x + "," + y + ") is outside of (0.." + (width - 1) + ",0.." + (height - 1) + ")");
         }
         return y * width + x;
+    }
+
+    public boolean isInside(int x, int y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
+    public boolean isOutside(int x, int y) {
+        return x < 0 || x >= width || y < 0 || y >= height;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CharMatrix matrix = (CharMatrix) o;
+        return width == matrix.width && height == matrix.height && Arrays.equals(chars, matrix.chars);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * Objects.hash(width, height) + Arrays.hashCode(chars);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Matrix ").append(width).append(":").append(height).append("\n");
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                sb.append(get(x, y));
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
