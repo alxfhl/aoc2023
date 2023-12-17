@@ -37,7 +37,7 @@ public class Day17 {
 
     }
 
-    record Tile(int loss, Map<Direction, Integer> minLoss) {
+    record Tile(int loss, Map<Boolean, Integer> minLoss) {
 
     }
 
@@ -70,8 +70,8 @@ public class Day17 {
                     addTodo2(grid, todos, state, Direction.DOWN, minDistance, maxDistance);
                 }
             }
-            int best = grid.getLast().getLast().minLoss().values().stream().mapToInt(l -> l).min().orElse(Integer.MAX_VALUE);
-            todos.removeIf(todo -> todo.loss() > best);
+            grid.getLast().getLast().minLoss().values().stream().mapToInt(l -> l).min()
+                    .ifPresent(best -> todos.removeIf(todo -> todo.loss() > best));
         }
         return grid.getLast().getLast().minLoss().values().stream().mapToInt(l -> l).min().orElseThrow();
     }
@@ -86,8 +86,9 @@ public class Day17 {
             }
             Tile tile = grid.get((int) pos.y()).get((int) pos.x());
             loss += tile.loss();
-            if (i >= minDistance && (tile.minLoss.get(direction) == null || tile.minLoss.get(direction) > loss)) {
-                tile.minLoss.put(direction, loss);
+            if (i >= minDistance && (tile.minLoss.get(direction.isHorizontal()) == null
+                    || tile.minLoss.get(direction.isHorizontal()) > loss)) {
+                tile.minLoss.put(direction.isHorizontal(), loss);
                 todos.add(new State(pos, direction, loss));
             }
         }
