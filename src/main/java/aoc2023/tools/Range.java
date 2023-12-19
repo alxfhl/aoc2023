@@ -18,6 +18,10 @@ public record Range(long start /* included */, long end /* excluded */) implemen
         return start <= value && value < end;
     }
 
+    public boolean contains(Range range) {
+        return start <= range.start && end >= range.end;
+    }
+
     /**
      * @return if there are long values that are contained in both ranges.
      */
@@ -84,6 +88,10 @@ public record Range(long start /* included */, long end /* excluded */) implemen
             return List.of();
         }
         return List.of(new Range(range.end, end));
+    }
+
+    public long size() {
+        return end - start;
     }
 
     @Override
