@@ -33,7 +33,6 @@ public class Day19 {
             {x=2127,m=1623,a=2188,s=1013}""");
 
     public static void main(String[] args) throws IOException {
-        System.out.println(EXAMPLE1.size());
         final List<String> input = Input.forDay(Day19.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));
