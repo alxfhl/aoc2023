@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("SuspiciousNameCombination")
@@ -22,6 +23,13 @@ public class CharMatrix {
         this.height = original.height;
         this.chars = new char[original.chars.length];
         System.arraycopy(original.chars, 0, this.chars, 0, this.chars.length);
+    }
+
+    public CharMatrix(int width, int height, char fill) {
+        this.width = width;
+        this.height = height;
+        this.chars = new char[width * height];
+        Arrays.fill(this.chars, fill);
     }
 
     public CharMatrix transposed() {
@@ -93,8 +101,16 @@ public class CharMatrix {
         return matrix;
     }
 
+    public void set(Coord2D coord2D, char ch) {
+        set((int) coord2D.x(), (int) coord2D.y(), ch);
+    }
+
     public void set(int x, int y, char ch) {
         chars[getIndex(x, y)] = ch;
+    }
+
+    public char get(Coord2D coord2D) {
+        return get((int) coord2D.x(), (int) coord2D.y());
     }
 
     public char get(int x, int y) {
@@ -122,6 +138,10 @@ public class CharMatrix {
         return y * width + x;
     }
 
+    public boolean isInside(Coord2D coord2D) {
+        return isInside((int) coord2D.x(), (int) coord2D.y());
+    }
+
     public boolean isInside(int x, int y) {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
@@ -137,5 +157,15 @@ public class CharMatrix {
             sb.append(chars, y * width, width).append("\n");
         }
         return sb.toString();
+    }
+
+    public long count(char ch) {
+        long count = 0;
+        for (char achar : chars) {
+            if (achar == ch) {
+                count++;
+            }
+        }
+        return count;
     }
 }
