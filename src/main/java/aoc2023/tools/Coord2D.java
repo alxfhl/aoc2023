@@ -16,6 +16,10 @@ public record Coord2D(long x, long y) {
         return new Coord2D(x + direction.dx(), y + direction.dy());
     }
 
+    public Coord2D go(long dx, long dy) {
+        return new Coord2D(x + dx, y + dy);
+    }
+
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";

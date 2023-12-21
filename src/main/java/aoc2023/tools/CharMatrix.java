@@ -168,4 +168,12 @@ public class CharMatrix {
         }
         return count;
     }
+
+    public void replace(char search, char replacement) {
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == search) {
+                chars[i] = replacement;
+            }
+        }
+    }
 }
