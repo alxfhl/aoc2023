@@ -4,7 +4,6 @@ import aoc2023.tools.Input;
 import aoc2023.tools.Parse;
 import aoc2023.tools.Range;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,48 +13,7 @@ import java.util.regex.Pattern;
 
 import static java.util.Comparator.comparing;
 
-/**
- * Disclaimer: I worked on this after I had today's solution, to make it more object-oriented and easier to read.
- * In the end it might be worse than before, but at least I extracted a well tested class Range from this that may be
- * of use in the coming days.
- * And somewhere on the way I lost the solution to part 1 of today's task.
- */
 public class Day05 {
-
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            seeds: 79 14 55 13
-                        
-            seed-to-soil map:
-            50 98 2
-            52 50 48
-                        
-            soil-to-fertilizer map:
-            0 15 37
-            37 52 2
-            39 0 15
-                        
-            fertilizer-to-water map:
-            49 53 8
-            0 11 42
-            42 0 7
-            57 7 4
-                        
-            water-to-light map:
-            88 18 7
-            18 25 70
-                        
-            light-to-temperature map:
-            45 77 23
-            81 45 19
-            68 64 13
-                        
-            temperature-to-humidity map:
-            0 69 1
-            1 0 69
-                        
-            humidity-to-location map:
-            60 56 37
-            56 93 4""");
 
     record MappingEntry(Range sourceRange, long delta) {
     }
@@ -63,14 +21,35 @@ public class Day05 {
     record Mapping(String from, String to, List<MappingEntry> entries) {
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day05.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            List<Range> seeds = getSeeds(lines);
-            List<Mapping> mappings = getMappings(lines);
-            List<Range> ranges = mapEverything(seeds, mappings);
-            System.out.println("lowest location: " + getMinStart(ranges));
+        System.out.println("lowest location: " + getPart2(input));
+    }
+
+    public static long getPart1(List<String> input) {
+        List<Long> seeds = getSeeds1(input);
+        List<Mapping> mappings = getMappings(input);
+        List<Long> ranges = map(seeds, mappings);
+        return ranges.stream().mapToLong(Long::longValue).min().orElseThrow();
+    }
+
+    private static List<Long> getSeeds1(List<String> lines) {
+        return Parse.getLongs(lines.getFirst());
+    }
+
+    private static List<Long> map(List<Long> seeds, List<Mapping> mappings) {
+        List<Long> values = new ArrayList<>(seeds);
+        for (Mapping mapping : mappings) {
+            values = values.stream().map(value -> map(value, mapping.entries)).toList();
         }
+        return values;
+    }
+
+    public static long getPart2(List<String> input) {
+        List<Range> seeds = getSeeds2(input);
+        List<Mapping> mappings = getMappings(input);
+        List<Range> ranges = mapEverything(seeds, mappings);
+        return ranges.stream().mapToLong(Range::start).min().orElseThrow();
     }
 
     private static List<Range> mapEverything(List<Range> seeds, List<Mapping> mappings) {
@@ -83,6 +62,15 @@ public class Day05 {
             ranges = newRanges;
         }
         return ranges;
+    }
+
+    private static long map(long value, List<MappingEntry> entries) {
+        for (MappingEntry entry : entries) {
+            if (entry.sourceRange.contains(value)) {
+                return value + entry.delta;
+            }
+        }
+        return value;
     }
 
     private static void map(Range range, List<MappingEntry> entries, List<Range> result) {
@@ -105,12 +93,7 @@ public class Day05 {
         result.addAll(todos);
     }
 
-
-    private static long getMinStart(List<Range> ranges) {
-        return ranges.stream().mapToLong(Range::start).min().orElseThrow();
-    }
-
-    private static List<Range> getSeeds(List<String> lines) {
+    private static List<Range> getSeeds2(List<String> lines) {
         List<Long> longs = Parse.getLongs(lines.getFirst());
         List<Range> seeds = new ArrayList<>();
         for (int i = 0; i < longs.size(); i += 2) {

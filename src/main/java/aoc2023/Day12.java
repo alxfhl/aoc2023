@@ -3,7 +3,6 @@ package aoc2023;
 import aoc2023.tools.Input;
 import aoc2023.tools.Parse;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -18,7 +17,7 @@ public class Day12 {
             "????.######..#####. 1,6,5",
             "?###???????? 3,2,1");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day12.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));

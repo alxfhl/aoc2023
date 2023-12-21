@@ -142,6 +142,10 @@ public class CharMatrix {
         return isInside((int) coord2D.x(), (int) coord2D.y());
     }
 
+    public boolean isOutside(Coord2D coord2D) {
+        return isOutside((int) coord2D.x(), (int) coord2D.y());
+    }
+
     public boolean isInside(int x, int y) {
         return x >= 0 && x < width && y >= 0 && y < height;
     }

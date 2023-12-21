@@ -3,7 +3,6 @@ package aoc2023;
 import aoc2023.tools.CharMatrix;
 import aoc2023.tools.Input;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class Day14 {
             #....###..
             #OO..#....""");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day14.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));

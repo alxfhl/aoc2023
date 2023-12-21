@@ -2,29 +2,14 @@ package aoc2023;
 
 import aoc2023.tools.Input;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day03 {
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            467..114..
-            ...*......
-            ..35..633.
-            ......#...
-            617*......
-            .....+.58.
-            ..592.....
-            ......755.
-            ...$.*....
-            .664.598..""");
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day03.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
     record Symbol(int x, int y, String symbol, List<PartNumber> partNumbers) {
@@ -35,7 +20,7 @@ public class Day03 {
 
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         List<Symbol> symbols = parseSymbols(lines);
         List<PartNumber> partNumbers = parsePartNumbers(lines, symbols);
         return partNumbers.stream()
@@ -44,7 +29,7 @@ public class Day03 {
                 .sum();
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         List<Symbol> symbols = parseSymbols(lines);
         parsePartNumbers(lines, symbols);
         return symbols.stream()

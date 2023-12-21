@@ -3,7 +3,6 @@ package aoc2023;
 import aoc2023.tools.Input;
 import aoc2023.tools.MathUtils;
 
-import java.io.IOException;
 import java.util.*;
 
 public class Day08 {
@@ -24,7 +23,7 @@ public class Day08 {
             BBB = (AAA, ZZZ)
             ZZZ = (ZZZ, ZZZ)""");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day08.class);
         for (var lines : List.of(EXAMPLE1, EXAMPLE2, input)) {
             System.out.println("part 1: " + getPart1(lines));

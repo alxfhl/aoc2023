@@ -8,8 +8,12 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Input {
-    public static List<String> fromFile(String fileName) throws IOException {
-        return Files.readAllLines(Path.of("src/main/resources/aoc2023/" + fileName));
+    public static List<String> fromFile(String fileName) {
+        try {
+            return Files.readAllLines(Path.of("src/main/resources/aoc2023/" + fileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static List<String> fromString(String s) {
@@ -21,7 +25,7 @@ public class Input {
         return result;
     }
 
-    public static List<String> forDay(Class<?> clazz) throws IOException {
+    public static List<String> forDay(Class<?> clazz) {
         return fromFile("input" + clazz.getSimpleName().substring(3));
     }
 }

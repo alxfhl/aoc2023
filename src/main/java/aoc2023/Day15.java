@@ -2,7 +2,6 @@ package aoc2023;
 
 import aoc2023.tools.Input;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +10,7 @@ public class Day15 {
 
     public static final List<String> EXAMPLES = List.of("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = new ArrayList<>(EXAMPLES);
         input.add(Input.forDay(Day15.class).getFirst());
         System.out.println("hash of 'HASH': " + hash("HASH"));

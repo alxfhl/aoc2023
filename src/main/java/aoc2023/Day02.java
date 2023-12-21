@@ -2,20 +2,12 @@ package aoc2023;
 
 import aoc2023.tools.Input;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Day02 {
-
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-            Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-            Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
-            Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-            Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green""");
 
     record Draw(Map<String, Integer> cubes) {
 
@@ -25,15 +17,13 @@ public class Day02 {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day02.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getValue(lines));
-            System.out.println("part 2: " + getValue2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static int getValue(List<String> lines) {
+    public static int getPart1(List<String> lines) {
         int sum = 0;
         for (String line : lines) {
             var game = parse(line);
@@ -46,7 +36,7 @@ public class Day02 {
         return sum;
     }
 
-    private static long getValue2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         long sum = 0;
         for (String line : lines) {
             var game = parse(line);

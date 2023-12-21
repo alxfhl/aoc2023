@@ -3,8 +3,10 @@ package aoc2023;
 import aoc2023.tools.Input;
 import lombok.RequiredArgsConstructor;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class Day10 {
@@ -16,7 +18,7 @@ public class Day10 {
             -L-J|
             L|-JF""");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day10.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));

@@ -136,4 +136,27 @@ class RangeTest {
         assertThat(range1.minus(new Range(0, 5))).containsExactly(new Range(5, 10));
         assertThat(range1.minus(new Range(5, 10))).containsExactly(new Range(0, 5));
     }
+
+    @Test
+    public void containsRange() {
+        Range range = new Range(4, 8);
+        assertThat(range.contains(new Range(4, 8))).isTrue();
+        assertThat(range.contains(new Range(4, 6))).isTrue();
+        assertThat(range.contains(new Range(6, 6))).isTrue();
+        assertThat(range.contains(new Range(7, 8))).isTrue();
+
+        assertThat(range.contains(new Range(1, 1))).isFalse();
+        assertThat(range.contains(new Range(3, 5))).isFalse();
+        assertThat(range.contains(new Range(0, 2))).isFalse();
+        assertThat(range.contains(new Range(8, 9))).isFalse();
+        assertThat(range.contains(new Range(4, 9))).isFalse();
+        assertThat(range.contains(new Range(3, 8))).isFalse();
+    }
+
+    @Test
+    public void size() {
+        assertThat(new Range(4, 8).size()).isEqualTo(4);
+        assertThat(new Range(4, 4).size()).isEqualTo(0);
+        assertThat(new Range(-3, 5).size()).isEqualTo(8);
+    }
 }

@@ -4,7 +4,6 @@ import aoc2023.tools.Coord2D;
 import aoc2023.tools.Direction;
 import aoc2023.tools.Input;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -42,7 +41,7 @@ public class Day16 {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day16.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));

@@ -4,7 +4,6 @@ import aoc2023.tools.Input;
 import aoc2023.tools.MathUtils;
 import lombok.RequiredArgsConstructor;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -143,7 +142,7 @@ public class Day20 {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Input.forDay(Day20.class);
         for (var lines : List.of(EXAMPLE1, input)) {
             System.out.println("part 1: " + getPart1(lines));
