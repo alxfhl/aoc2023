@@ -41,6 +41,15 @@ public enum Direction {
         };
     }
 
+    public Direction turnAround() {
+        return switch (this) {
+            case UP -> DOWN;
+            case RIGHT -> LEFT;
+            case DOWN -> UP;
+            case LEFT -> RIGHT;
+        };
+    }
+
     public boolean isHorizontal() {
         return this == LEFT || this == RIGHT;
     }
