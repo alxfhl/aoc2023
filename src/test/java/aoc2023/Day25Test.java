@@ -10,17 +10,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Day25Test {
 
     public static final List<String> EXAMPLE1 = Input.fromString("""
+            jqt: rhn xhk nvd
+            rsh: frs pzl lsr
+            xhk: hfx
+            cmg: qnr nvd lhk bvb
+            rhn: xhk bvb hfx
+            bvb: xhk hfx
+            pzl: lsr hfx nvd
+            qnr: nvd
+            ntq: jqt hfx bvb xhk
+            nvd: lhk
+            lsr: lhk
+            rzs: qnr cmg lsr rsh
+            frs: qnr lhk lsr
             """);
 
     @Test
     public void part1() {
-        assertThat(Day25.getPart1(EXAMPLE1)).isEqualTo(0);
-        // assertThat(Day25.getPart1(Input.fromFile("input25"))).isEqualTo(0);
+        assertThat(Day25.getPart1(EXAMPLE1)).isEqualTo(54);
+        assertThat(Day25.getPart1(Input.fromFile("input25"))).isEqualTo(568214);
     }
 
-    @Test
-    public void part2() {
-        // assertThat(Day25.getPart2(EXAMPLE1)).isEqualTo(0);
-        // assertThat(Day25.getPart2(Input.fromFile("input25"))).isEqualTo(0);
-    }
 }

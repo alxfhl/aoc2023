@@ -15,7 +15,7 @@ public class Day24 {
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day24.class);
         System.out.println("part 1: " + getPart1(input, new BigDecimal("200000000000000"), new BigDecimal("400000000000000")));
-        System.out.println("part 2: " + getPart2(input));
+        System.out.println("part 2: " + getPart2(input, 1000));
     }
 
     record Hailstone(BigInteger px, BigInteger py, BigInteger pz, BigInteger vx, BigInteger vy, BigInteger vz) {
@@ -58,7 +58,7 @@ public class Day24 {
         return count;
     }
 
-    public static BigInteger getPart2(List<String> lines) {
+    public static BigInteger getPart2(List<String> lines, int range) {
         List<Hailstone> hailstones = parse(lines);
         BigInteger finalX = null;
         BigInteger finalY = null;
@@ -67,13 +67,13 @@ public class Day24 {
         BigInteger finalVY = null;
         BigInteger finalVZ = null;
 
-        for (int vxInt = -1000; vxInt <= 1000; vxInt++) {
+        for (int vxInt = -range; vxInt <= range; vxInt++) {
             if (vxInt == 0) {
                 continue;
             }
             // two-dimensional solution for x and y
             BigInteger vx = BigInteger.valueOf(vxInt);
-            for (int vyInt = -1000; vyInt <= 1000; vyInt++) {
+            for (int vyInt = -range; vyInt <= range; vyInt++) {
                 if (vyInt == 0) {
                     continue;
                 }
@@ -94,17 +94,20 @@ public class Day24 {
                     BigInteger newX = calcX(vx, vy, s1.px, s1.py, s1.vx, s1.vy, s3.px, s3.py, s3.vx, s3.vy);
                     BigInteger newY = calcY(vx, vy, x, s1.px, s1.py, s1.vx, s1.vy);
                     if (x.equals(newX) && y.equals(newY)) {
-                        finalX = x;
-                        finalVX = vx;
-                        finalY = y;
-                        finalVY = vy;
+                        if (index == hailstones.size() - 1) {
+                            finalX = x;
+                            finalVX = vx;
+                            finalY = y;
+                            finalVY = vy;
+                        }
+                    } else {
                         break;
                     }
                 }
             }
 
             // two-dimensional solution for x and z
-            for (int vzInt = -1000; vzInt <= 1000; vzInt++) {
+            for (int vzInt = -range; vzInt <= range; vzInt++) {
                 if (vzInt == 0) {
                     continue;
                 }
@@ -125,8 +128,12 @@ public class Day24 {
                     BigInteger newX = calcX(vx, vz, s1.px, s1.pz, s1.vx, s1.vz, s3.px, s3.pz, s3.vx, s3.vz);
                     BigInteger newZ = calcY(vx, vz, x, s1.px, s1.pz, s1.vx, s1.vz);
                     if (x.equals(newX) && z.equals(newZ)) {
-                        finalZ = z;
-                        finalVZ = vz;
+                        if (index == hailstones.size() - 1) {
+                            finalZ = z;
+                            finalVZ = vz;
+                        }
+                    } else {
+                        break;
                     }
                 }
             }
