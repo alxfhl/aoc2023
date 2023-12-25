@@ -10,12 +10,6 @@ public class Day07 {
 
     private static final List<String> ORDER1 = List.of("2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A");
     private static final List<String> ORDER2 = List.of("J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A");
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            32T3K 765
-            T55J5 684
-            KK677 28
-            KTJJT 220
-            QQQJA 483""");
 
     private enum Kind {
         HIGH_CARD, ONE_PAIR, TWO_PAIR, THREE, FULL_HOUSE, FOUR, FIVE;
@@ -77,13 +71,11 @@ public class Day07 {
 
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day07.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         List<Hand> hands = new ArrayList<>();
         for (String line : lines) {
             List<String> cards = getCardsFromLine(line);
@@ -114,7 +106,7 @@ public class Day07 {
         return sum;
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         List<Hand> hands = new ArrayList<>();
         for (String line : lines) {
             List<String> cards = getCardsFromLine(line);

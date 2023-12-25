@@ -11,19 +11,10 @@ import java.util.function.Predicate;
 
 public class Day10 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            -L|F7
-            7S-7|
-            L|7||
-            -L-J|
-            L|-JF""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day10.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
     @RequiredArgsConstructor
@@ -37,7 +28,7 @@ public class Day10 {
         private int distance = -1;
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         List<List<Tile>> tiles = parse(lines);
         return tiles.stream().flatMap(List::stream).mapToInt(tile -> tile.distance).max().orElseThrow();
     }
@@ -116,7 +107,7 @@ public class Day10 {
         return "-".equals(symbol) || "L".equals(symbol) || "F".equals(symbol);
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         List<List<Tile>> tiles = parse(lines);
         int count = 0;
         for (List<Tile> row : tiles) {

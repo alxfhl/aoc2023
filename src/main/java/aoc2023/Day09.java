@@ -8,24 +8,17 @@ import java.util.List;
 
 public class Day09 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            0 3 6 9 12 15
-            1 3 6 10 15 21
-            10 13 16 21 30 45""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day09.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         return lines.stream().mapToLong(line -> predict(Parse.getLongs(line))).sum();
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         return lines.stream().mapToLong(line -> predict(Parse.getLongs(line).reversed())).sum();
     }
 

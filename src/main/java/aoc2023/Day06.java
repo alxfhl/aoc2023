@@ -8,23 +8,17 @@ import java.util.List;
 
 public class Day06 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            Time:      7  15   30
-            Distance:  9  40  200""");
-
-    record Race(long time, long distance) {
+    public record Race(long time, long distance) {
 
     }
 
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day06.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         long product = 1;
         for (Race race : parseRaces(lines)) {
             product *= getWaysToWin(race.time, race.distance);
@@ -32,7 +26,7 @@ public class Day06 {
         return product;
     }
 
-    private static List<Race> parseRaces(List<String> lines) {
+    public static List<Race> parseRaces(List<String> lines) {
         List<Long> times = Parse.getLongs(lines.get(0));
         List<Long> distances = Parse.getLongs(lines.get(1));
         List<Race> races = new ArrayList<>();
@@ -43,17 +37,16 @@ public class Day06 {
     }
 
     private static long getWaysToWin(long time, long distance) {
-        long count = 0;
         for (long press = 1; press < time; press++) {
             long me = (time - press) * press;
             if (me > distance) {
-                count++;
+                return (time - 1) - 2 * (press - 1);
             }
         }
-        return count;
+        return 0;
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         return getWaysToWin(getOneNumber(lines.get(0)), getOneNumber(lines.get(1)));
     }
 
