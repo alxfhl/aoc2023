@@ -12,31 +12,10 @@ import java.util.regex.Pattern;
 
 public class Day19 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            px{a<2006:qkq,m>2090:A,rfg}
-            pv{a>1716:R,A}
-            lnx{m>1548:A,A}
-            rfg{s<537:gd,x>2440:R,A}
-            qs{s>3448:A,lnx}
-            qkq{x<1416:A,crn}
-            crn{x>2662:A,R}
-            in{s<1351:px,qqz}
-            qqz{s>2770:qs,m<1801:hdj,R}
-            gd{a>3333:R,R}
-            hdj{m>838:A,pv}
-            \s
-            {x=787,m=2655,a=1222,s=2876}
-            {x=1679,m=44,a=2067,s=496}
-            {x=2036,m=264,a=79,s=2244}
-            {x=2461,m=1339,a=466,s=291}
-            {x=2127,m=1623,a=2188,s=1013}""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day19.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
     record Rule(String attribute, boolean greater, int than, String result) {
@@ -46,7 +25,7 @@ public class Day19 {
         }
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         Map<String, List<Rule>> workflows = parseWorkflows(lines);
         long sum = 0;
         for (String line : lines) {
@@ -124,7 +103,7 @@ public class Day19 {
         throw new IllegalStateException();
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         Map<String, List<Rule>> workflows = parseWorkflows(lines);
         return getSum(workflows, "in", new Range(1, 4001), new Range(1, 4001), new Range(1, 4001), new Range(1, 4001));
     }

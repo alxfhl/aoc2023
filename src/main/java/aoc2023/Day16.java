@@ -8,22 +8,13 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-/**
- * Disclaimer: This is the cleaned up version after introducing Coord2D and Direction classes and some refactoring.
- */
 public class Day16 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            .|...\\....
-            |.-.\\.....
-            .....|-...
-            ........|.
-            ..........
-            .........\\
-            ..../.\\\\..
-            .-.-/..|..
-            .|....-|.\\
-            ..//.|....""");
+    public static void main(String[] args) {
+        final List<String> input = Input.forDay(Day16.class);
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
+    }
 
     record Tile(char ch, EnumSet<Direction> exits) {
         public Tile(char ch) {
@@ -41,19 +32,11 @@ public class Day16 {
 
     }
 
-    public static void main(String[] args) {
-        final List<String> input = Input.forDay(Day16.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
-    }
-
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         return evaluate(parse(lines), new Coord2D(0, 0), Direction.RIGHT);
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         List<List<Tile>> grid = parse(lines);
         int width = grid.getFirst().size();
         int height = grid.size();

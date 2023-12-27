@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Day08 {
+
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day08.class);
         System.out.println("part 1: " + getPart1(input));

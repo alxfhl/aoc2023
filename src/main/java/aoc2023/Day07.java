@@ -8,6 +8,12 @@ import static java.util.Comparator.comparing;
 
 public class Day07 {
 
+    public static void main(String[] args) {
+        final List<String> input = Input.forDay(Day07.class);
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
+    }
+
     private static final List<String> ORDER1 = List.of("2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A");
     private static final List<String> ORDER2 = List.of("J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A");
 
@@ -67,12 +73,6 @@ public class Day07 {
 
     record Hand(List<String> cards, long bid, Kind kind) {
 
-    }
-
-    public static void main(String[] args) {
-        final List<String> input = Input.forDay(Day07.class);
-        System.out.println("part 1: " + getPart1(input));
-        System.out.println("part 2: " + getPart2(input));
     }
 
     public static long getPart1(List<String> lines) {

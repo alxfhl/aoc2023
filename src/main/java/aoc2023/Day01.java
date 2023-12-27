@@ -10,9 +10,6 @@ import static java.util.Collections.max;
 import static java.util.Collections.min;
 import static java.util.Comparator.comparing;
 
-/**
- * <a href="https://adventofcode.com/2023/day/1">Day 1</a>
- */
 public class Day01 {
 
     public static void main(String[] args) {

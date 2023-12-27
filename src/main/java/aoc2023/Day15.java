@@ -8,23 +8,17 @@ import java.util.List;
 
 public class Day15 {
 
-    public static final List<String> EXAMPLES = List.of("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7");
-
     public static void main(String[] args) {
-        final List<String> input = new ArrayList<>(EXAMPLES);
-        input.add(Input.forDay(Day15.class).getFirst());
-        System.out.println("hash of 'HASH': " + hash("HASH"));
-        for (var line : input) {
-            System.out.println("part 1: " + getPart1(line));
-            System.out.println("part 2: " + getPart2(line));
-        }
+        String input = Input.forDay(Day15.class).getFirst();
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static long getPart1(String line) {
+    public static long getPart1(String line) {
         return Arrays.stream(line.split(",")).mapToInt(Day15::hash).sum();
     }
 
-    private static int hash(String line) {
+    public static int hash(String line) {
         int currentValue = 0;
         for (char ch : line.toCharArray()) {
             currentValue = (currentValue + ch) * 17 % 256;
@@ -36,7 +30,7 @@ public class Day15 {
 
     }
 
-    private static long getPart2(String line) {
+    public static long getPart2(String line) {
         List<String> commands = List.of(line.split(","));
         List<List<Lens>> boxes = new ArrayList<>();
         for (int i = 0; i < 256; i++) {

@@ -9,20 +9,10 @@ import java.util.stream.IntStream;
 
 public class Day12 {
 
-    public static final List<String> EXAMPLE1 = List.of(
-            "???.### 1,1,3",
-            ".??..??...?##. 1,1,3",
-            "?#?#?#?#?#?#?#? 1,3,1,6",
-            "????.#...#... 4,1,1",
-            "????.######..#####. 1,6,5",
-            "?###???????? 3,2,1");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day12.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
     enum Symbol {
@@ -40,24 +30,14 @@ public class Day12 {
         }
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         List<Line> input = parse(lines);
-        long sum = 0;
-        for (Line line : input) {
-            long possibilities = possibilities(line.symbols, line.runs);
-            sum += possibilities;
-        }
-        return sum;
+        return input.stream().mapToLong(line -> possibilities(line.symbols, line.runs)).sum();
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         List<Line> input = unfold(parse(lines));
-        long sum = 0;
-        for (Line line : input) {
-            long possibilities = possibilities(line.symbols, line.runs);
-            sum += possibilities;
-        }
-        return sum;
+        return input.stream().mapToLong(line -> possibilities(line.symbols, line.runs)).sum();
     }
 
     private static List<Line> parse(List<String> lines) {
@@ -148,7 +128,7 @@ public class Day12 {
             end--;
         }
         if (start > 0 || end < symbols.size()) {
-            return new ArrayList<>(symbols.subList(start, end));
+            return symbols.subList(start, end);
         }
         return symbols;
     }

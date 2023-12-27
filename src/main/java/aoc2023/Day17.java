@@ -8,28 +8,10 @@ import java.util.*;
 
 public class Day17 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            2413432311323
-            3215453535623
-            3255245654254
-            3446585845452
-            4546657867536
-            1438598798454
-            4457876987766
-            3637877979653
-            4654967986887
-            4564679986453
-            1224686865563
-            2546548887735
-            4322674655533""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day17.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
-        System.out.println("102 - 94 - 694 - 829");
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
     record State(Coord2D pos, Direction lastDirection, int loss) {
@@ -40,11 +22,11 @@ public class Day17 {
 
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         return solve(lines, 1, 3);
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         return solve(lines, 4, 10);
     }
 

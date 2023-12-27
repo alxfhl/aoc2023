@@ -14,28 +14,10 @@ import static java.util.Comparator.comparing;
 
 public class Day18 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            R 6 (#70c710)
-            D 5 (#0dc571)
-            L 2 (#5713f0)
-            D 2 (#d2c081)
-            R 2 (#59c680)
-            D 2 (#411b91)
-            L 5 (#8ceee2)
-            U 2 (#caa173)
-            L 1 (#1b58a2)
-            U 2 (#caa171)
-            R 2 (#7807d2)
-            U 3 (#a77fa3)
-            L 2 (#015232)
-            U 2 (#7a21e3)""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day18.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
     record Dig(Direction direction, int length, String color) {
@@ -46,7 +28,7 @@ public class Day18 {
 
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         List<Dig> plan = parse(lines);
         int x = 0;
         int y = 0;
@@ -118,25 +100,39 @@ public class Day18 {
         return plan;
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         List<Dig> plan = parse(lines);
         plan = convert(plan);
         List<Trench> trenches = toTrenches(plan);
         int minY = trenches.stream().mapToInt(Trench::startY).min().orElseThrow();
         int maxY = trenches.stream().mapToInt(Trench::startY).max().orElseThrow();
         long sum = 0;
-        for (int y = minY; y <= maxY; y++) {
-            sum += getRowSum(trenches, y);
+        int y = minY;
+        while (y <= maxY) {
+            int finalY = y;
+            List<Trench> filtered = trenches.stream().filter(t -> t.startY <= finalY && t.endY >= finalY).toList();
+            long rowSum = getRowSum(filtered, y);
+            if (filtered.stream().noneMatch(trench -> trench.direction().isHorizontal())) {
+                int sameY = trenches.stream()
+                        .filter(t -> t.direction.isHorizontal() && t.endY > finalY)
+                        .mapToInt(Trench::endY)
+                        .min().orElseThrow()
+                        - y;
+                sum += rowSum * sameY;
+                y += sameY;
+            } else {
+                sum += rowSum;
+                y++;
+            }
         }
         return sum;
     }
 
-    private static int getRowSum(List<Trench> trenches, int y) {
+    private static int getRowSum(List<Trench> filtered, int y) {
         boolean inside = false;
         boolean onPipeFromSouth = false;
         boolean onPipeFromNorth = false;
         int rowSum = 0;
-        List<Trench> filtered = trenches.stream().filter(t -> t.startY <= y && t.endY >= y).toList();
         int x = filtered.getFirst().startX();
         rowSum++;
         for (Trench trench : filtered) {

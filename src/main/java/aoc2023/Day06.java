@@ -8,14 +8,14 @@ import java.util.List;
 
 public class Day06 {
 
-    public record Race(long time, long distance) {
-
-    }
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day06.class);
         System.out.println("part 1: " + getPart1(input));
         System.out.println("part 2: " + getPart2(input));
+    }
+
+    public record Race(long time, long distance) {
+
     }
 
     public static long getPart1(List<String> lines) {

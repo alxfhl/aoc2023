@@ -10,13 +10,13 @@ import java.util.regex.Pattern;
 
 public class Day04 {
 
-    private static final Pattern PATTERN = Pattern.compile("Card\\s+(\\d+):\\s*([^|]+)\\|([^|]+)");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day04.class);
         System.out.println("part 1: " + getPart1(input));
         System.out.println("part 2: " + getPart2(input));
     }
+
+    private static final Pattern PATTERN = Pattern.compile("Card\\s+(\\d+):\\s*([^|]+)\\|([^|]+)");
 
     record ScratchCard(int number, List<Long> winningNumber, List<Long> yourNumbers, int matching) {
     }

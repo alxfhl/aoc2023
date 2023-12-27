@@ -9,18 +9,18 @@ import java.util.Map;
 
 public class Day02 {
 
+    public static void main(String[] args) {
+        final List<String> input = Input.forDay(Day02.class);
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
+    }
+
     record Draw(Map<String, Integer> cubes) {
 
     }
 
     record Game(int number, List<Draw> draws) {
 
-    }
-
-    public static void main(String[] args) {
-        final List<String> input = Input.forDay(Day02.class);
-        System.out.println("part 1: " + getPart1(input));
-        System.out.println("part 2: " + getPart2(input));
     }
 
     public static int getPart1(List<String> lines) {

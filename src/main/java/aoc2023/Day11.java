@@ -9,39 +9,23 @@ import java.util.Set;
 
 public class Day11 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            ...#......
-            .......#..
-            #.........
-            ..........
-            ......#...
-            .#........
-            .........#
-            ..........
-            .......#..
-            #...#.....""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day11.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2 (10): " + getPart2(lines, 10));
-            System.out.println("part 2 (100): " + getPart2(lines, 100));
-            System.out.println("part 2 (1000000): " + getPart2(lines, 1000000));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input, 1000000));
     }
 
     record Galaxy(long x, long y) {
 
     }
 
-    private static Long getPart1(List<String> lines) {
+    public static Long getPart1(List<String> lines) {
         List<Galaxy> galaxies = parse(lines);
         galaxies = expand(galaxies, 1);
         return shortestPaths(galaxies);
     }
 
-    private static Long getPart2(List<String> lines, long factor) {
+    public static Long getPart2(List<String> lines, long factor) {
         List<Galaxy> galaxies = parse(lines);
         galaxies = expand(galaxies, factor - 1);
         return shortestPaths(galaxies);

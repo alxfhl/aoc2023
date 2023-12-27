@@ -12,33 +12,15 @@ import java.util.Map;
 
 public class Day21 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            ...........
-            .....###.#.
-            .###.##..#.
-            ..#.#...#..
-            ....#.#....
-            .##..S####.
-            .##..#...#.
-            .......##..
-            .##.#.####.
-            .##..##.##.
-            ...........
-            """);
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day21.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-        }
-        for (var lines : List.of(input)) {
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input, 64));
+        System.out.println("part 2: " + getPart2(input, 26501365));
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines, int steps) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
-        for (int step = 1; step <= 64; step++) {
+        for (int step = 1; step <= steps; step++) {
             CharMatrix newMatrix = new CharMatrix(matrix);
             for (int y = 0; y < matrix.getHeight(); y++) {
                 for (int x = 0; x < matrix.getWidth(); x++) {
@@ -89,18 +71,20 @@ public class Day21 {
         }
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines, int steps) {
         CharMatrix original = CharMatrix.valueOf(lines);
         CharMatrix empty = new CharMatrix(original);
         int width = original.getWidth();
         int height = original.getHeight();
+        int blockSize = width * 2;
         empty.replace('S', '.');
         Map<Coord2D, SubMatrix> matrixes = new HashMap<>();
         SubMatrix subMatrix = new SubMatrix(1, 0, 0, new CharMatrix(original));
         matrixes.put(new Coord2D(0, 0), subMatrix);
 
-
-        for (int step = 1; step <= 65 + 131 * 5; step++) {
+        int remainder = steps % blockSize;
+        List<Long> values = new ArrayList<>();
+        for (int step = 1; step <= remainder + blockSize * 2; step++) {
             List<Coord2D> outside = new ArrayList<>();
             for (var matrix : matrixes.values()) {
                 outside.addAll(matrix.doStep());
@@ -115,27 +99,20 @@ public class Day21 {
                 matrixes.computeIfAbsent(newMatrixPosition, k -> new SubMatrix(finalStep1, x - relX, y - relY, new CharMatrix(empty)))
                         .matrix.set((int) relX, (int) relY, 'O');
             }
-            // 65 = 26501365 % 131 (the width of the matrix)
-            if (step % 131 == 65) {
+            if (step % blockSize == remainder) {
                 long sum = 0;
                 for (SubMatrix value : matrixes.values()) {
                     sum += value.matrix.count('O');
                 }
-                System.out.println("step " + step + ": " + sum);
+                values.add(sum);
             }
         }
 
-        // (obviously) very poor mathematical skills and Excel lead to this algorithm deduced by the previous results.
-        // I am just a little bit ashamed.
-        long sum = 188951;
-        long steps = 458;
-        long delta = 92480; // delta to the sum 131 steps ago.
-        while (steps < 26501365) {
-            steps += 131;
-            delta += 30794;
-            sum += delta;
-        }
-        return sum;
+        long offset = values.get(0);
+        long quadratic = values.get(2) + values.get(0) - values.get(1) * 2;
+        long linear = values.get(1) - offset - quadratic;
+        long fullWidths = (steps - remainder) / blockSize;
+        return offset + linear * fullWidths + fullWidths * (fullWidths + 1) / 2 * quadratic;
     }
 
 }

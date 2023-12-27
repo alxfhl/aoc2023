@@ -8,27 +8,13 @@ import java.util.List;
 
 public class Day14 {
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            O....#....
-            O.OO#....#
-            .....##...
-            OO.#O....O
-            .O.....O#.
-            O.#..O.#.#
-            ..O..#O..O
-            .......O..
-            #....###..
-            #OO..#....""");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day14.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
         tiltNorth(matrix);
         return getLoad(matrix);
@@ -84,7 +70,7 @@ public class Day14 {
         }
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
         List<CharMatrix> afterCycle = new ArrayList<>();
         afterCycle.add(new CharMatrix(matrix));

@@ -13,14 +13,13 @@ import static java.util.stream.Collectors.joining;
 
 public class Day20 {
 
-    public static final List<String> RELEVANT_CONJUNCTIONS = List.of("tx", "dd", "nz", "ph");
+    public static void main(String[] args) {
+        final List<String> input = Input.forDay(Day20.class);
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
+    }
 
-    public static final List<String> EXAMPLE1 = Input.fromString("""
-            broadcaster -> a, b, c
-            %a -> b
-            %b -> c
-            %c -> inv
-            &inv -> a""");
+    public static final List<String> RELEVANT_CONJUNCTIONS = List.of("tx", "dd", "nz", "ph");
 
     @RequiredArgsConstructor
     static class Module {
@@ -142,15 +141,7 @@ public class Day20 {
         }
     }
 
-    public static void main(String[] args) {
-        final List<String> input = Input.forDay(Day20.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-        }
-        System.out.println("part 2: " + getPart2(input));
-    }
-
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         Map<String, Module> modules = parseModules(lines);
         Module broadcaster = modules.get("broadcaster");
         List<Pulse> pulses = new LinkedList<>();
@@ -211,7 +202,7 @@ public class Day20 {
         return modules;
     }
 
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         Map<String, Module> modules = parseModules(lines);
         Module broadcaster = modules.get("broadcaster");
         List<Pulse> pulses = new LinkedList<>();

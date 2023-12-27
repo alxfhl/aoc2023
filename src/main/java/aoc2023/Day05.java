@@ -15,15 +15,16 @@ import static java.util.Comparator.comparing;
 
 public class Day05 {
 
+    public static void main(String[] args) {
+        final List<String> input = Input.forDay(Day05.class);
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
+    }
+
     record MappingEntry(Range sourceRange, long delta) {
     }
 
     record Mapping(String from, String to, List<MappingEntry> entries) {
-    }
-
-    public static void main(String[] args) {
-        final List<String> input = Input.forDay(Day05.class);
-        System.out.println("lowest location: " + getPart2(input));
     }
 
     public static long getPart1(List<String> input) {

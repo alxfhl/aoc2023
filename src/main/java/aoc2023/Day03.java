@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Day03 {
+
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day03.class);
         System.out.println("part 1: " + getPart1(input));

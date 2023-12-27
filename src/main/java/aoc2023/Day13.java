@@ -12,32 +12,13 @@ import java.util.List;
  */
 public class Day13 {
 
-    public static final List<String> EXAMPLE1 = List.of(
-            "#.##..##.",
-            "..#.##.#.",
-            "##......#",
-            "##......#",
-            "..#.##.#.",
-            "..##..##.",
-            "#.#.##.#.",
-            "",
-            "#...##..#",
-            "#....#..#",
-            "..##..###",
-            "#####.##.",
-            "#####.##.",
-            "..##..###",
-            "#....#..#");
-
     public static void main(String[] args) {
         final List<String> input = Input.forDay(Day13.class);
-        for (var lines : List.of(EXAMPLE1, input)) {
-            System.out.println("part 1: " + getPart1(lines));
-            System.out.println("part 2: " + getPart2(lines));
-        }
+        System.out.println("part 1: " + getPart1(input));
+        System.out.println("part 2: " + getPart2(input));
     }
 
-    private static long getPart1(List<String> lines) {
+    public static long getPart1(List<String> lines) {
         long sumHorizontal = 0;
         long sumVertical = 0;
         for (CharMatrix pattern : parse(lines)) {
@@ -88,7 +69,7 @@ public class Day13 {
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
-    private static long getPart2(List<String> lines) {
+    public static long getPart2(List<String> lines) {
         long sumHorizontal = 0;
         long sumVertical = 0;
         for (CharMatrix pattern : parse(lines)) {
